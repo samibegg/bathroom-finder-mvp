@@ -24,9 +24,24 @@ model Bathroom {
   wheelchairAccessible Boolean?
   changingTable        Boolean?
   requiresPurchase     Boolean  @default(false)
+  isVerified           Boolean  @default(true)
+  verificationCount    Int      @default(0)
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
 
+  reviews              Review[]
+
   @@index([city, state])
   @@index([latitude, longitude])
+}
+
+model Review {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  bathroomId  String   @db.ObjectId
+  bathroom    Bathroom @relation(fields: [bathroomId], references: [id], onDelete: Cascade)
+  content     String?
+  rating      Float?
+  upvotes     Int      @default(0)
+  downvotes   Int      @default(0)
+  createdAt   DateTime @default(now())
 }

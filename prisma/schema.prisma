@@ -8,21 +8,24 @@ datasource db {
 }
 
 model Bathroom {
-  id                String   @id @default(auto()) @map("_id") @db.ObjectId
-  name              String
-  description       String?
-  latitude          Float
-  longitude         Float
-  address           String
-  city              String
-  state             String
-  zip               String
-  type              String
-  isPublic          Boolean  @default(true)
-  doorCode          String?
-  cleanlinessRating Float    @default(3.0)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  name                 String
+  description          String?
+  latitude             Float
+  longitude            Float
+  address              String
+  city                 String
+  state                String
+  zip                  String
+  type                 String
+  isPublic             Boolean  @default(true)
+  doorCode             String?
+  cleanlinessRating    Float    @default(3.0)
+  wheelchairAccessible Boolean?
+  changingTable        Boolean?
+  requiresPurchase     Boolean  @default(false)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
 
   @@index([city, state])
   @@index([latitude, longitude])

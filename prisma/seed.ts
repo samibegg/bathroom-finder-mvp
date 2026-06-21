@@ -1,9 +1,6 @@
-import { PrismaClient } from "../app/generated/prisma/client";
-import { PrismaLibSql } from "@prisma/adapter-libsql";
+import { PrismaClient } from "@prisma/client";
 
-// db lives at project root: ./dev.db (matches DATABASE_URL=file:./dev.db)
-const adapter = new PrismaLibSql({ url: "file:dev.db" });
-const prisma = new PrismaClient({ adapter } as any);
+const prisma = new PrismaClient();
 
 const bathrooms = [
   {
@@ -75,12 +72,11 @@ const bathrooms = [
 
 async function main() {
   console.log("Seeding database with Chicago bathrooms...");
+  // Drop all previous
+  await prisma.bathroom.deleteMany({});
   for (const bathroom of bathrooms) {
-    const seedId = "seed-" + bathroom.name.replace(/\s+/g, "-").toLowerCase().slice(0, 20);
-    await prisma.bathroom.upsert({
-      where: { id: seedId },
-      update: {},
-      create: { id: seedId, ...bathroom },
+    await prisma.bathroom.create({
+      data: bathroom,
     });
   }
   console.log(`✅ Seeded ${bathrooms.length} bathrooms.`);

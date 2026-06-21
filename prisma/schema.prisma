@@ -1,0 +1,31 @@
+// Prisma 7 schema — URL is configured in prisma.config.ts, not here.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Bathroom {
+  id                String   @id @default(cuid())
+  name              String
+  description       String?
+  latitude          Float
+  longitude         Float
+  address           String
+  city              String
+  state             String
+  zip               String
+  type              String
+  isPublic          Boolean  @default(true)
+  doorCode          String?
+  cleanlinessRating Float    @default(3.0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([city, state])
+  @@index([latitude, longitude])
+}

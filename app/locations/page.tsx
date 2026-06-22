@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Public Bathroom Directory by City & State — GoFind",
+  title: "Public Bathroom Directory by City & State | GottaFlush",
   description:
     "Browse public restrooms and bathrooms across the US by city and state. Find clean, accessible bathrooms near you — no sign-up needed.",
   keywords: [

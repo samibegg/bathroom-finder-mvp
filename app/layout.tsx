@@ -8,9 +8,9 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "GoFind — Find Public Bathrooms Near You",
+  title: "GottaFlush | Find Clean Public Bathrooms Fast",
   description:
-    "Instantly find the nearest clean public bathrooms, restrooms, and toilets near you. Free, no sign-up required.",
+    "GottaFlush helps you instantly find the nearest clean public bathrooms, restrooms, and toilets near you. Free, no sign-up required.",
   keywords: ["public bathroom", "restroom finder", "toilet near me", "public restroom"],
 };
 

@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const stateName = state.toUpperCase();
 
   return {
-    title: `Public Bathrooms in ${cityName}, ${stateName} — GoFind`,
+    title: `Public Bathrooms in ${cityName}, ${stateName} | GottaFlush`,
     description: `Find clean public restrooms in ${cityName}, ${stateName}. Browse ${cityName} public bathrooms by location, cleanliness rating, and type. No sign-up required.`,
     keywords: [
       `public bathrooms ${cityName}`,

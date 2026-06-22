@@ -102,7 +102,7 @@ export default function HomePage() {
                 <div className="text-6xl">🚻</div>
                 <h1 className="text-2xl font-bold text-gray-900">Find a Clean Restroom</h1>
                 <p className="text-gray-500 text-sm max-w-xs">
-                  Instantly find the nearest public bathrooms, with cleanliness ratings.
+                  Instantly find the nearest public bathrooms with GottaFlush, with cleanliness ratings.
                 </p>
                 <button
                   onClick={handleFindMe}

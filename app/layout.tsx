@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   description:
     "GottaFlush helps you instantly find the nearest clean public bathrooms, restrooms, and toilets near you. Free, no sign-up required.",
   keywords: ["public bathroom", "restroom finder", "toilet near me", "public restroom"],
+  other: {
+    "google-adsense-account": "ca-pub-7052226382174065"
+  },
 };
 
 export default function RootLayout({
@@ -28,7 +31,7 @@ export default function RootLayout({
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7052226382174065"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
         />
       </head>
       <body className="min-h-full flex flex-col bg-white">{children}

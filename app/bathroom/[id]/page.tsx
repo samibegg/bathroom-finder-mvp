@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import ReviewForm from "@/components/ReviewForm";
 import { Metadata } from "next";
 import AdBanner from "@/components/AdBanner";
 
@@ -68,9 +69,7 @@ export default async function BathroomPage({ params }: { params: Promise<{ id: s
             )}
 
             <div className="pt-2">
-              <button className="w-full bg-indigo-600 text-white font-medium py-3 rounded-xl active:bg-indigo-700 transition-colors">
-                Add Code or Review
-              </button>
+              <ReviewForm bathroomId={bathroom.id} />
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Metadata } from "next";
+import AdBanner from "@/components/AdBanner";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -93,6 +94,7 @@ export default async function BathroomPage({ params }: { params: Promise<{ id: s
           </div>
         )}
       </div>
+      <AdBanner dataAdSlot="auto" dataAdFormat="auto" dataFullWidthResponsive={true} />
     </main>
   );
 }

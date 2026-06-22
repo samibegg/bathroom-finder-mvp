@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import AdBanner from "@/components/AdBanner";
 
 interface PageProps {
   params: Promise<{ state: string; city: string }>;
@@ -196,7 +197,8 @@ export default async function CityBathroomsPage({ params }: PageProps) {
               and door codes where available — all crowdsourced by the GoFind community.
             </p>
           </section>
-        </main>
+          <AdBanner dataAdSlot="auto" dataAdFormat="auto" dataFullWidthResponsive={true} />
+    </main>
       </div>
     </>
   );

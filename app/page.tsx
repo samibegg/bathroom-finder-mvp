@@ -18,7 +18,7 @@ export default function HomePage() {
   const [bathrooms, setBathrooms] = useState<BathroomLocation[]>([]);
 
   const fetchNearby = useCallback(async (lat: number, lon: number, bounds?: any) => {
-    setStatus("loading");
+    if (!bounds) setStatus("loading");
     try {
       let url = `/api/bathrooms?lat=${lat}&lon=${lon}&limit=50`;
       if (bounds) {
@@ -93,7 +93,7 @@ export default function HomePage() {
 
       {/* Map area */}
       <div className="flex-1 pt-[60px]">
-        {status === "ready" && userLat !== null && userLon !== null ? (
+        {(status === "ready" || (status === "loading" && userLat !== null)) && userLat !== null && userLon !== null ? (
           <BathroomMap
             userLat={userLat}
             userLon={userLon}

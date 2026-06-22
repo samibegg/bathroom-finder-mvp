@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { prisma } from "@/lib/prisma"
 
+// Trigger massive SEO route build
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const bathrooms = await prisma.bathroom.findMany({
     select: {

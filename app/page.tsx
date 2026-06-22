@@ -17,10 +17,14 @@ export default function HomePage() {
   const [userLon, setUserLon] = useState<number | null>(null);
   const [bathrooms, setBathrooms] = useState<BathroomLocation[]>([]);
 
-  const fetchNearby = useCallback(async (lat: number, lon: number) => {
+  const fetchNearby = useCallback(async (lat: number, lon: number, bounds?: any) => {
     setStatus("loading");
     try {
-      const res = await fetch(`/api/bathrooms?lat=${lat}&lon=${lon}&limit=10`);
+      let url = `/api/bathrooms?lat=${lat}&lon=${lon}&limit=50`;
+      if (bounds) {
+        url += `&minLat=${bounds.minLat}&maxLat=${bounds.maxLat}&minLon=${bounds.minLon}&maxLon=${bounds.maxLon}`;
+      }
+      const res = await fetch(url);
       if (!res.ok) throw new Error("API error");
       const data = await res.json();
       setBathrooms(data);
@@ -94,6 +98,7 @@ export default function HomePage() {
             userLat={userLat}
             userLon={userLon}
             bathrooms={bathrooms}
+            onBoundsChange={(bounds) => fetchNearby(userLat, userLon, bounds)}
           />
         ) : (
           <div className="h-full flex flex-col items-center justify-center gap-4 px-6 text-center">

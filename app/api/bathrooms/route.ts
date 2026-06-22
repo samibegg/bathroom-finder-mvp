@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-// Haversine distance in km
 function haversine(lat1: number, lon1: number, lat2: number, lon2: number): number {
   const R = 6371;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
@@ -18,18 +17,33 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const lat = parseFloat(searchParams.get("lat") ?? "");
   const lon = parseFloat(searchParams.get("lon") ?? "");
-  const limit = parseInt(searchParams.get("limit") ?? "10");
+  const minLat = parseFloat(searchParams.get("minLat") ?? "");
+  const maxLat = parseFloat(searchParams.get("maxLat") ?? "");
+  const minLon = parseFloat(searchParams.get("minLon") ?? "");
+  const maxLon = parseFloat(searchParams.get("maxLon") ?? "");
+  const limit = parseInt(searchParams.get("limit") ?? "50");
 
-  if (isNaN(lat) || isNaN(lon)) {
-    return NextResponse.json({ error: "lat and lon required" }, { status: 400 });
+  let query: any = {};
+
+  if (!isNaN(minLat) && !isNaN(maxLat) && !isNaN(minLon) && !isNaN(maxLon)) {
+    query = {
+      where: {
+        latitude: { gte: minLat, lte: maxLat },
+        longitude: { gte: minLon, lte: maxLon }
+      },
+      take: limit
+    };
   }
 
-  const bathrooms = await prisma.bathroom.findMany();
+  const bathrooms = await prisma.bathroom.findMany(query);
 
-  const sorted = bathrooms
-    .map((b) => ({ ...b, distanceKm: haversine(lat, lon, b.latitude, b.longitude) }))
-    .sort((a, b) => a.distanceKm - b.distanceKm)
-    .slice(0, limit);
+  if (!isNaN(lat) && !isNaN(lon)) {
+    const sorted = bathrooms
+      .map((b) => ({ ...b, distanceKm: haversine(lat, lon, b.latitude, b.longitude) }))
+      .sort((a, b) => a.distanceKm - b.distanceKm)
+      .slice(0, limit);
+    return NextResponse.json(sorted);
+  }
 
-  return NextResponse.json(sorted);
+  return NextResponse.json(bathrooms.slice(0, limit));
 }

@@ -25,6 +25,11 @@ export default function BathroomMap({ userLat, userLon, bathrooms, onBoundsChang
   const mapRef = useRef<HTMLDivElement>(null);
   const leafletMapRef = useRef<any>(null);
   const markersRef = useRef<any[]>([]);
+  const onBoundsChangeRef = useRef(onBoundsChange);
+
+  useEffect(() => {
+    onBoundsChangeRef.current = onBoundsChange;
+  }, [onBoundsChange]);
 
   useEffect(() => {
     if (!mapRef.current) return;
@@ -56,24 +61,25 @@ export default function BathroomMap({ userLat, userLon, bathrooms, onBoundsChang
         .addTo(map)
         .bindPopup("<b>You are here</b>");
 
-      if (onBoundsChange) {
-        map.on("moveend", () => {
+      map.on("moveend", () => {
+        if (onBoundsChangeRef.current) {
           const bounds = map.getBounds();
-          onBoundsChange({
+          onBoundsChangeRef.current({
             minLat: bounds.getSouth(),
             maxLat: bounds.getNorth(),
             minLon: bounds.getWest(),
             maxLon: bounds.getEast()
           });
-        });
-      }
+        }
+      });
     });
 
     return () => {
       leafletMapRef.current?.remove();
       leafletMapRef.current = null;
     };
-  }, [userLat, userLon, onBoundsChange]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (!leafletMapRef.current) return;

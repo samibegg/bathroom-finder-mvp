@@ -74,9 +74,9 @@ export default function HomePage() {
       {/* Header */}
       <header className="absolute top-0 left-0 right-0 z-10 bg-white/80 backdrop-blur-sm border-b border-gray-200 px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-2xl">🚻</span>
+          <span className="text-2xl">🚽</span>
           <span className="font-bold text-gray-900 text-lg leading-tight">
-            Go<span className="text-indigo-600">Find</span>
+            Gotta<span className="text-indigo-600">Flush</span>
           </span>
         </div>
         <button
@@ -99,7 +99,7 @@ export default function HomePage() {
           <div className="h-full flex flex-col items-center justify-center gap-4 px-6 text-center">
             {status === "idle" && (
               <>
-                <div className="text-6xl">🚻</div>
+                <div className="text-6xl">🚽</div>
                 <h1 className="text-2xl font-bold text-gray-900">Find a Clean Restroom</h1>
                 <p className="text-gray-500 text-sm max-w-xs">
                   Instantly find the nearest public bathrooms with GottaFlush, with cleanliness ratings.

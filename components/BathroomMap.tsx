@@ -70,7 +70,7 @@ export default function BathroomMap({ userLat, userLon, bathrooms }: Props) {
         L.marker([b.latitude, b.longitude], { icon: bathroomIcon })
           .addTo(map)
           .bindPopup(
-            `<b>${b.name}</b><br/>${b.address}<br/>${b.type} · ${b.isPublic ? "Public" : "Customers only"}${distText}`
+            `<b>${b.name}</b><br/>${b.address}<br/>${b.type} · ${b.isPublic ? "Public" : "Customers only"}${distText}<br/><a href="/bathroom/${b.id}" class="text-indigo-600 underline font-medium mt-1 block">View Details \& Codes</a>`
           );
       });
     });

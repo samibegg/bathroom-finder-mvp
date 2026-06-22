@@ -1,6 +1,7 @@
 "use client";
 
 import { BathroomLocation } from "./BathroomMap";
+import Link from "next/link";
 
 interface Props {
   bathrooms: BathroomLocation[];
@@ -40,41 +41,43 @@ export default function BottomSheet({ bathrooms }: Props) {
       </div>
       <div className="overflow-y-auto flex-1 divide-y divide-gray-100 pb-safe">
         {bathrooms.map((b, i) => (
-          <div key={b.id} className="px-4 py-3 flex gap-3 items-start active:bg-gray-50">
-            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-lg">
-              {typeEmoji[b.type] ?? "🚻"}
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-start justify-between gap-2">
-                <p className="font-medium text-sm text-gray-900 leading-tight truncate">{b.name}</p>
-                {i === 0 && (
-                  <span className="flex-shrink-0 text-xs bg-green-100 text-green-700 font-medium px-1.5 py-0.5 rounded">
-                    Closest
-                  </span>
-                )}
+          <Link href={`/bathroom/${b.id}`} key={b.id} className="block px-4 py-3 active:bg-gray-50 hover:bg-gray-50 transition-colors">
+            <div className="flex gap-3 items-start">
+              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-lg">
+                {typeEmoji[b.type] ?? "🚻"}
               </div>
-              <p className="text-xs text-gray-500 truncate">{b.address}</p>
-              <div className="flex items-center gap-2 mt-0.5">
-                <StarRating rating={b.cleanlinessRating} />
-                <span className="text-xs text-gray-400">·</span>
-                <span
-                  className={`text-xs font-medium ${b.isPublic ? "text-green-600" : "text-orange-500"}`}
-                >
-                  {b.isPublic ? "Public" : "Customers only"}
-                </span>
-                {b.distanceKm != null && (
-                  <>
-                    <span className="text-xs text-gray-400">·</span>
-                    <span className="text-xs text-gray-500">
-                      {b.distanceKm < 1
-                        ? `${(b.distanceKm * 1000).toFixed(0)}m`
-                        : `${b.distanceKm.toFixed(1)}km`}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-start justify-between gap-2">
+                  <p className="font-medium text-sm text-gray-900 leading-tight truncate">{b.name}</p>
+                  {i === 0 && (
+                    <span className="flex-shrink-0 text-xs bg-green-100 text-green-700 font-medium px-1.5 py-0.5 rounded">
+                      Closest
                     </span>
-                  </>
-                )}
+                  )}
+                </div>
+                <p className="text-xs text-gray-500 truncate">{b.address}</p>
+                <div className="flex items-center gap-2 mt-0.5">
+                  <StarRating rating={b.cleanlinessRating} />
+                  <span className="text-xs text-gray-400">·</span>
+                  <span
+                    className={`text-xs font-medium ${b.isPublic ? "text-green-600" : "text-orange-500"}`}
+                  >
+                    {b.isPublic ? "Public" : "Customers only"}
+                  </span>
+                  {b.distanceKm != null && (
+                    <>
+                      <span className="text-xs text-gray-400">·</span>
+                      <span className="text-xs text-gray-500">
+                        {b.distanceKm < 1
+                          ? `${(b.distanceKm * 1000).toFixed(0)}m`
+                          : `${b.distanceKm.toFixed(1)}km`}
+                      </span>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
